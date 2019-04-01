@@ -18,10 +18,126 @@
         </para>
         <para>
             Megoldás forrása:
-             <link xlink:href="https://gitlab.com/Gimett/prog1/blob/f1f8610d9a13321898d6af8fca3da204afdbafb1/oszt.cpp">Osztály c++</link>                
+           "#include <iostream>
+#include <cstdlib>
+#include <cmath>
+#include <ctime>
+
+class PolarGen
+{
+public:
+  PolarGen ()
+  {
+    nincsTarolt = true;
+    std::srand (std::time (NULL));
+  }
+   ~PolarGen ()
+  {
+  }
+  double kovetkezo ()
+  {
+    if (nincsTarolt)
+      {
+        double u1, u2, v1, v2, w;
+        do
+    {
+      u1 = std::rand () / (RAND_MAX + 1.0);
+      u2 = std::rand () / (RAND_MAX + 1.0);
+      v1 = 2 * u1 - 1;
+      v2 = 2 * u2 - 1;
+      w = v1 * v1 + v2 * v2;
+    }
+        while (w > 1);
+
+        double r = std::sqrt ((-2 * std::log (w)) / w);
+
+        tarolt = r * v2;
+        nincsTarolt = !nincsTarolt;
+
+        return r * v1;
+      }
+    else
+      {
+        nincsTarolt = !nincsTarolt;
+        return tarolt;
+      }
+  }
+
+
+
+private:
+  bool nincsTarolt;
+  double tarolt;
+
+};
+
+
+int
+main (int argc, char **argv)
+{
+  PolarGen pg;
+
+  for (int i = 0; i < 10; ++i)
+    std::cout << pg.kovetkezo () << std::endl;
+
+  return 0;
+}
+"               
         </para>
         <para>
-            <link xlink:href="https://gitlab.com/Gimett/prog1/blob/4e361f4b75077e3a93fcb969a545ab7e458cecdf/polargen.java">Osztály java</link>    
+            "
+                              import java.util.Random;
+
+public class PolarGen
+{
+	private double tarolt;
+	private boolean nincsTarolt;
+	private Random r;
+	private int RAND_MAX;
+	
+	public PolarGen()
+	{
+		nincsTarolt = true;
+		r = new Random();
+		r.setSeed(20);
+		this.RAND_MAX=100;
+	}
+	public PolarGen(Integer RAND_MAX)
+	{
+		nincsTarolt = true;
+		r = new Random();
+		r.setSeed(20);
+		this.RAND_MAX=RAND_MAX;
+	}
+	
+	public double kovetkezo()
+	{
+		if (nincsTarolt)
+	    {
+			
+			double u1, u2, v1, v2, w;
+			int i=0;
+	        do
+		    {
+			      u1 = r.nextInt() / (RAND_MAX + 1.0);
+			      u2 = r.nextInt() / (RAND_MAX + 1.0);
+			      v1 = 2 * u1 - 1;
+			      v2 = 2 * u2 - 1;
+			      w = v1 * v1 + v2 * v2;
+		    }
+		    while (w > 1 && i++ < 40000000);
+	        double r = Math.sqrt ((2 * Math.log10(w)) / w);
+	        tarolt = r * v2;
+	        nincsTarolt = !nincsTarolt;
+	        return r * v1;
+	    }
+	    else
+	    {
+	        nincsTarolt = !nincsTarolt;
+	        return tarolt;
+	    }
+	}
+}   
         </para>
         <para>
             Létrehoztunk egy osztályt megadjuk, hogy nincs tárolt szám, illetve a véletlenszám-generátornak véletlenszerűt adunk. 
@@ -40,7 +156,222 @@
         </para>
         <para>
             Megoldás forrása:
-            <link xlink:href="https://gitlab.com/Gimett/prog1/blob/1bd15ce8d7de93382991ec816e2e6feabdc746c1/binfa.c">Binfa c</link>                
+            "#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+#include <string.h>
+typedef struct node{
+	char c;
+	struct node* left;
+	struct node* right;
+} Node;
+
+Node* fa;
+Node gyoker;
+
+#define null NULL
+
+Node* create_empty()
+{
+	Node* tmp = &gyoker;
+	tmp->c= '/';
+	tmp->left = null;
+	tmp->right = null;
+	return tmp;
+}
+
+Node* create_node(char val)
+{
+	Node* tmp = (Node*)malloc(sizeof(Node));
+	tmp->c=val;
+	tmp->left = null;
+	tmp->right = null;
+	return tmp;
+}
+
+void insert_tree(char val)
+{
+	if(val=='0')
+	{
+		if(fa->left == null)
+		{
+			fa->left = create_node(val);
+			fa = &gyoker;
+			//printf("Inserted into left.");
+		}
+		else
+		{
+			fa = fa->left;
+		}
+	}
+	else
+	{
+		if(fa->right == null)
+		{
+			fa->right = create_node(val);
+			fa = &gyoker;
+			//printf("Inserted into left.");
+		}
+		else
+		{
+			fa = fa->right;
+		}
+	}
+}
+
+void inorder(Node* elem,int depth)
+{
+
+	if(elem==null)
+	{
+		return;
+	}
+	inorder(elem->left,depth+1);
+	if(depth) 
+	{
+		char *spaces;
+		spaces =(char*) malloc(sizeof(char)*depth*2+1);
+		for(int i=0;i<depth;i+=2)
+		{
+			spaces[i]='-';
+			spaces[i+1]='-';
+		}
+		spaces[depth]='\0';
+
+		printf("%s%c\n",spaces,elem->c);
+	}
+	else
+	{
+		printf("%c\n",elem->c);
+	}
+	inorder(elem->right,depth+1);
+}
+
+void preorder(Node* elem,int depth)
+{
+	if(elem==null)
+	{
+		return;
+	}
+	if(depth) 
+	{
+		char *spaces;
+		spaces =(char*) malloc(sizeof(char)*depth*2+1);
+		for(int i=0;i<depth;i+=2)
+		{
+			spaces[i]='-';
+			spaces[i+1]='-';
+		}
+		spaces[depth*2]='\0';
+
+		printf("%s%c\n",spaces,elem->c);
+	}
+	else
+	{
+		printf("%c\n",elem->c);
+	}
+	preorder(elem->left,depth+1);	
+	preorder(elem->right,depth+1);
+}
+void postorder(Node* elem,int depth)
+{
+	if(elem==null)
+	{
+		return;
+	}
+	postorder(elem->left,depth+1);	
+	postorder(elem->right,depth+1);
+	if(depth) 
+	{
+		char *spaces;
+		spaces =(char*) malloc(sizeof(char)*depth*2+1);
+		for(int i=0;i<depth;i+=2)
+		{
+			spaces[i]='-';
+			spaces[i+1]='-';
+		}
+		spaces[depth*2]='\0';
+
+		printf("%s%c\n",spaces,elem->c);
+		free(spaces);
+	}
+	else
+	{
+		printf("%c\n",elem->c);
+	}
+}
+
+void destroy_tree(Node* elem)
+{
+	if(elem==null)
+	{
+		return;
+	}
+	destroy_tree(elem->left);
+	destroy_tree(elem->right);
+	if(elem->c == gyoker.c)
+	{
+
+	}
+	else
+	{
+		free(elem);
+	}
+}
+
+void usage()
+{
+	printf("Használat: ./binfa KAPCSOLÓ\n");
+	printf("Az KAPCSOLÓ lehet:\n");
+	printf("--preorder\tA bináris fa preorder bejárása\n");
+	printf("--inorder\tA bináris fa inorder bejárása\n");
+	printf("--postorder\tA bináris fa postorder bejárása\n");
+}
+
+int main(int argc, char** argv)
+{
+	srand(time(null));
+	fa = create_empty();
+	//gyoker = *fa;
+	for(int i=0;i<10000;i++)
+	{
+		int x=rand()%2;
+		if(x)
+		{
+			insert_tree('1');
+		}
+		else
+		{
+			insert_tree('0');
+		}
+	}
+	if(argc == 2)
+	{
+		if(strcmp(argv[1],"--preorder")==0)
+		{
+			preorder(&gyoker,0);
+		}
+		else if(strcmp(argv[1],"--inorder")==0)
+		{
+			inorder(&gyoker,0);
+		}
+		else if(strcmp(argv[1],"--postorder")==0)
+		{
+			postorder(&gyoker,0);
+		}
+		else
+		{
+			usage();
+		}
+	}
+	else
+	{
+		usage();
+	}
+	destroy_tree(&gyoker);
+	return 0;
+}
+"               
         </para>
         <para>
            Létrehozunk egy Node nevű struktúrát, ami a fában lévő csomópontokat jelképsíti. Ennek van egy változója, illetve két mutatója. Az egyik a nullásra, a másik az egyesre mutat.
@@ -73,7 +404,222 @@
         </para>
         <para>
             Megoldás forrása:
-            <link xlink:href="https://gitlab.com/Gimett/prog1/blob/1bd15ce8d7de93382991ec816e2e6feabdc746c1/binfa.c">Előző linkben</link>                
+            "#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+#include <string.h>
+typedef struct node{
+	char c;
+	struct node* left;
+	struct node* right;
+} Node;
+
+Node* fa;
+Node gyoker;
+
+#define null NULL
+
+Node* create_empty()
+{
+	Node* tmp = &gyoker;
+	tmp->c= '/';
+	tmp->left = null;
+	tmp->right = null;
+	return tmp;
+}
+
+Node* create_node(char val)
+{
+	Node* tmp = (Node*)malloc(sizeof(Node));
+	tmp->c=val;
+	tmp->left = null;
+	tmp->right = null;
+	return tmp;
+}
+
+void insert_tree(char val)
+{
+	if(val=='0')
+	{
+		if(fa->left == null)
+		{
+			fa->left = create_node(val);
+			fa = &gyoker;
+			//printf("Inserted into left.");
+		}
+		else
+		{
+			fa = fa->left;
+		}
+	}
+	else
+	{
+		if(fa->right == null)
+		{
+			fa->right = create_node(val);
+			fa = &gyoker;
+			//printf("Inserted into left.");
+		}
+		else
+		{
+			fa = fa->right;
+		}
+	}
+}
+
+void inorder(Node* elem,int depth)
+{
+
+	if(elem==null)
+	{
+		return;
+	}
+	inorder(elem->left,depth+1);
+	if(depth) 
+	{
+		char *spaces;
+		spaces =(char*) malloc(sizeof(char)*depth*2+1);
+		for(int i=0;i<depth;i+=2)
+		{
+			spaces[i]='-';
+			spaces[i+1]='-';
+		}
+		spaces[depth]='\0';
+
+		printf("%s%c\n",spaces,elem->c);
+	}
+	else
+	{
+		printf("%c\n",elem->c);
+	}
+	inorder(elem->right,depth+1);
+}
+
+void preorder(Node* elem,int depth)
+{
+	if(elem==null)
+	{
+		return;
+	}
+	if(depth) 
+	{
+		char *spaces;
+		spaces =(char*) malloc(sizeof(char)*depth*2+1);
+		for(int i=0;i<depth;i+=2)
+		{
+			spaces[i]='-';
+			spaces[i+1]='-';
+		}
+		spaces[depth*2]='\0';
+
+		printf("%s%c\n",spaces,elem->c);
+	}
+	else
+	{
+		printf("%c\n",elem->c);
+	}
+	preorder(elem->left,depth+1);	
+	preorder(elem->right,depth+1);
+}
+void postorder(Node* elem,int depth)
+{
+	if(elem==null)
+	{
+		return;
+	}
+	postorder(elem->left,depth+1);	
+	postorder(elem->right,depth+1);
+	if(depth) 
+	{
+		char *spaces;
+		spaces =(char*) malloc(sizeof(char)*depth*2+1);
+		for(int i=0;i<depth;i+=2)
+		{
+			spaces[i]='-';
+			spaces[i+1]='-';
+		}
+		spaces[depth*2]='\0';
+
+		printf("%s%c\n",spaces,elem->c);
+		free(spaces);
+	}
+	else
+	{
+		printf("%c\n",elem->c);
+	}
+}
+
+void destroy_tree(Node* elem)
+{
+	if(elem==null)
+	{
+		return;
+	}
+	destroy_tree(elem->left);
+	destroy_tree(elem->right);
+	if(elem->c == gyoker.c)
+	{
+
+	}
+	else
+	{
+		free(elem);
+	}
+}
+
+void usage()
+{
+	printf("Használat: ./binfa KAPCSOLÓ\n");
+	printf("Az KAPCSOLÓ lehet:\n");
+	printf("--preorder\tA bináris fa preorder bejárása\n");
+	printf("--inorder\tA bináris fa inorder bejárása\n");
+	printf("--postorder\tA bináris fa postorder bejárása\n");
+}
+
+int main(int argc, char** argv)
+{
+	srand(time(null));
+	fa = create_empty();
+	//gyoker = *fa;
+	for(int i=0;i<10000;i++)
+	{
+		int x=rand()%2;
+		if(x)
+		{
+			insert_tree('1');
+		}
+		else
+		{
+			insert_tree('0');
+		}
+	}
+	if(argc == 2)
+	{
+		if(strcmp(argv[1],"--preorder")==0)
+		{
+			preorder(&gyoker,0);
+		}
+		else if(strcmp(argv[1],"--inorder")==0)
+		{
+			inorder(&gyoker,0);
+		}
+		else if(strcmp(argv[1],"--postorder")==0)
+		{
+			postorder(&gyoker,0);
+		}
+		else
+		{
+			usage();
+		}
+	}
+	else
+	{
+		usage();
+	}
+	destroy_tree(&gyoker);
+	return 0;
+}
+"               
         </para>
         <para>
             A preorder annyiban különbözik, hogy először a gyökerét dolgozzuk fel, majd járjuk be a részfa bal oldalát, és utánna a jobbat.
@@ -94,7 +640,214 @@
         </para>
         <para>
             Megoldás forrása:
-            <link xlink:href="https://gitlab.com/Gimett/prog1/blob/524c4c373b2971e82783593e3d7e51f8ba919986/binfa.cpp">Binfa c++</link>                
+            "#include <iostream>
+#include <cstdlib>
+#include <ctime>
+#include <string.h>
+
+#define null NULL
+
+class Binfa
+{
+private:
+	class Node
+	{
+	public:
+		Node(char c='/')
+		{
+			this->c=c;
+			this->left = null;
+			this->right = null;
+		}
+		char c;
+		Node* left;
+		Node* right;
+	};
+	Node* fa;
+	
+
+public:
+	Binfa(): fa(&gyoker)
+	{
+
+	}
+	
+	void operator<<(char c)
+	{
+		if(c=='0')
+		{
+			if(fa->left == null)
+			{
+				fa->left = new Node('0');
+				fa = &gyoker;
+			}
+			else
+			{
+				fa = fa->left;
+			}
+		}
+		else
+		{
+			if(fa->right == null)
+			{
+				fa->right = new Node('1');
+				fa = &gyoker;
+			}
+			else
+			{
+				fa = fa->right;
+			}
+		}
+	}
+	
+	void preorder(Node* elem,int depth=0)
+	{
+		if(elem==null)
+		{
+			return;
+		}
+		if(depth) 
+		{
+			char *spaces;
+			spaces =(char*) malloc(sizeof(char)*depth*2+1);
+			for(int i=0;i<depth;i+=2)
+			{
+				spaces[i]='-';
+				spaces[i+1]='-';
+			}
+			spaces[depth*2]='\0';
+
+			printf("%s%c\n",spaces,elem->c);
+		}
+		else
+		{
+			printf("%c\n",elem->c);
+		}
+		preorder(elem->left,depth+1);	
+		preorder(elem->right,depth+1);
+	}
+
+	void inorder(Node* elem,int depth=0)
+	{
+		if(elem==null)
+		{
+			return;
+		}
+		inorder(elem->left,depth+1);
+		if(depth) 
+		{
+			char *spaces;
+			spaces =(char*) malloc(sizeof(char)*depth*2+1);
+			for(int i=0;i<depth;i+=2)
+			{
+				spaces[i]='-';
+				spaces[i+1]='-';
+			}
+			spaces[depth*2]='\0';
+
+			printf("%s%c\n",spaces,elem->c);
+		}
+		else
+		{
+			printf("%c\n",elem->c);
+		}	
+		inorder(elem->right,depth+1);
+	}
+
+	void postorder(Node* elem,int depth=0)
+	{
+		if(elem==null)
+		{
+			return;
+		}
+		postorder(elem->left,depth+1);
+		postorder(elem->right,depth+1);
+		if(depth) 
+		{
+			char *spaces;
+			spaces =(char*) malloc(sizeof(char)*depth*2+1);
+			for(int i=0;i<depth;i+=2)
+			{
+				spaces[i]='-';
+				spaces[i+1]='-';
+			}
+			spaces[depth*2]='\0';
+
+			printf("%s%c\n",spaces,elem->c);
+		}
+		else
+		{
+			printf("%c\n",elem->c);
+		}	
+	}
+
+	void destroy_tree(Node* elem)
+	{
+		if(elem==null)
+		{
+			return;
+		}
+		destroy_tree(elem->left);
+		destroy_tree(elem->right);
+		if(elem->c!='/') delete elem;
+	}
+
+	Node gyoker;
+
+};
+
+void usage()
+{
+	printf("Használat: ./binfa KAPCSOLÓ\n");
+	printf("Az KAPCSOLÓ lehet:\n");
+	printf("--preorder\tA bináris fa preorder bejárása\n");
+	printf("--inorder\tA bináris fa inorder bejárása\n");
+	printf("--postorder\tA bináris fa postorder bejárása\n");
+}
+
+int main(int argc, char** argv)
+{
+	srand(time(0));
+	Binfa bfa;
+	for(int i=0;i<100;i++)
+	{
+		int x=rand()%2;
+		if(x)
+		{
+			bfa<<'1';
+		}
+		else
+		{
+			bfa<<'0';
+		}
+	}
+	if(argc == 2)
+	{
+		if(strcmp(argv[1],"--preorder")==0)
+		{
+			bfa.preorder(&bfa.gyoker);
+		}
+		else if(strcmp(argv[1],"--inorder")==0)
+		{
+			bfa.inorder(&bfa.gyoker);
+		}
+		else if(strcmp(argv[1],"--postorder")==0)
+		{
+			bfa.postorder(&bfa.gyoker);
+		}
+		else
+		{
+			usage();
+		}
+	}
+	else
+	{
+		usage();
+	}
+	bfa.destroy_tree(&bfa.gyoker);
+	return 0;
+}
+">Binfa c++              
         </para>
         <para>
             A különbség a bináris fát kezelő függvényeke a Binfa osztályban vannak rendezve.
@@ -114,7 +867,215 @@
         </para>
         <para>
             Megoldás forrása:
-            <link xlink:href="https://gitlab.com/Gimett/prog1/blob/dcd17b5851a41c09f4fb3b43808e99e7a98f8ca0/gyokmut.cpp">Gyökér a mutató</link>  
+           "#include <iostream>
+#include <cstdlib>
+#include <ctime>
+#include <string.h>
+
+#define null NULL
+
+class Binfa
+{
+private:
+	class Node
+	{
+	public:
+		Node(char c='/')
+		{
+			this->c=c;
+			this->left = null;
+			this->right = null;
+		}
+		char c;
+		Node* left;
+		Node* right;
+	};
+	Node* fa;
+	
+
+public:
+	Binfa()
+	{
+		gyoker=fa=new Node();
+	}
+	
+
+	void operator<<(char c)
+	{
+		if(c=='0')
+		{
+			if(fa->left == null)
+			{
+				fa->left = new Node('0');
+				fa = gyoker;
+			}
+			else
+			{
+				fa = fa->left;
+			}
+		}
+		else
+		{
+			if(fa->right == null)
+			{
+				fa->right = new Node('1');
+				fa = gyoker;
+			}
+			else
+			{
+				fa = fa->right;
+			}
+		}
+	}
+	
+	void preorder(Node* elem,int depth=0)
+	{
+		if(elem==null)
+		{
+			return;
+		}
+		if(depth) 
+		{
+			char *spaces;
+			spaces =(char*) malloc(sizeof(char)*depth*2+1);
+			for(int i=0;i<depth;i+=2)
+			{
+				spaces[i]='-';
+				spaces[i+1]='-';
+			}
+			spaces[depth*2]='\0';
+
+			printf("%s%c\n",spaces,elem->c);
+		}
+		else
+		{
+			printf("%c\n",elem->c);
+		}
+		preorder(elem->left,depth+1);	
+		preorder(elem->right,depth+1);
+	}
+
+	void inorder(Node* elem,int depth=0)
+	{
+		if(elem==null)
+		{
+			return;
+		}
+		inorder(elem->left,depth+1);
+		if(depth) 
+		{
+			char *spaces;
+			spaces =(char*) malloc(sizeof(char)*depth*2+1);
+			for(int i=0;i<depth;i+=2)
+			{
+				spaces[i]='-';
+				spaces[i+1]='-';
+			}
+			spaces[depth*2]='\0';
+
+			printf("%s%c\n",spaces,elem->c);
+		}
+		else
+		{
+			printf("%c\n",elem->c);
+		}	
+		inorder(elem->right,depth+1);
+	}
+
+	void postorder(Node* elem,int depth=0)
+	{
+		if(elem==null)
+		{
+			return;
+		}
+		postorder(elem->left,depth+1);
+		postorder(elem->right,depth+1);
+		if(depth) 
+		{
+			char *spaces;
+			spaces =(char*) malloc(sizeof(char)*depth*2+1);
+			for(int i=0;i<depth;i+=2)
+			{
+				spaces[i]='-';
+				spaces[i+1]='-';
+			}
+			spaces[depth*2]='\0';
+
+			printf("%s%c\n",spaces,elem->c);
+		}
+		else
+		{
+			printf("%c\n",elem->c);
+		}	
+	}
+
+	void destroy_tree(Node* elem)
+	{
+		if(elem==null)
+		{
+			return;
+		}
+		destroy_tree(elem->left);
+		destroy_tree(elem->right);
+		if(elem->c!='/') delete elem;
+	}
+
+	Node* gyoker;
+
+};
+
+void usage()
+{
+	printf("Használat: ./binfa KAPCSOLÓ\n");
+	printf("Az KAPCSOLÓ lehet:\n");
+	printf("--preorder\tA bináris fa preorder bejárása\n");
+	printf("--inorder\tA bináris fa inorder bejárása\n");
+	printf("--postorder\tA bináris fa postorder bejárása\n");
+}
+
+int main(int argc, char** argv)
+{
+	srand(time(0));
+	Binfa bfa;
+	for(int i=0;i<100;i++)
+	{
+		int x=rand()%2;
+		if(x)
+		{
+			bfa<<'1';
+		}
+		else
+		{
+			bfa<<'0';
+		}
+	}
+	if(argc == 2)
+	{
+		if(strcmp(argv[1],"--preorder")==0)
+		{
+			bfa.preorder(bfa.gyoker);
+		}
+		else if(strcmp(argv[1],"--inorder")==0)
+		{
+			bfa.inorder(bfa.gyoker);
+		}
+		else if(strcmp(argv[1],"--postorder")==0)
+		{
+			bfa.postorder(bfa.gyoker);
+		}
+		else
+		{
+			usage();
+		}
+	}
+	else
+	{
+		usage();
+	}
+	bfa.destroy_tree(bfa.gyoker);
+	return 0;
+}
+"  
         </para>
          <para>
             Az előző feladat módosítása. Különbség, hogy a gyökérre egy mutató mutat, ezért létre lett hozva a gyökérobjektum. 
