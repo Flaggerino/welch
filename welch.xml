@@ -140,9 +140,11 @@ public class PolarGen
 }   
         </para>
         <para>
-            Létrehoztunk egy osztályt megadjuk, hogy nincs tárolt szám, illetve a véletlenszám-generátornak véletlenszerűt adunk. 
-            Ezután megvizsgálja, hogy van-e szám, ha nincs, akkor generál két számot, az egyiket eltárolja, és a változót hamisra állítja, majd a másik számot adja vissza.
-            A Java-ban is hasonló megoldás van.
+            Egy olyan class-t hozunk letre, melyben meg tudjuk adni, hogy nincs szám tárolva, és a Random Number Generatornak véletlenszerű
+		értéket adunk. 
+            A program megvizsgálja, hogy van-e szám, ha nincs, kér 2 számot, melyekből az egyiket tárolja, a változóját hamisra 
+		változtaja, ezután a második számot adja vissza.
+            A megoldás JAVA nyelvben is hasonló.
         </para>                
     </section>        
 
@@ -374,23 +376,28 @@ int main(int argc, char** argv)
 "               
         </para>
         <para>
-           Létrehozunk egy Node nevű struktúrát, ami a fában lévő csomópontokat jelképsíti. Ennek van egy változója, illetve két mutatója. Az egyik a nullásra, a másik az egyesre mutat.
+          Csinálunk egy struktúrát melynek a Node nevet adjuk,ez jelzi a binfában lévő csomópontokat. EZ rendelkezik egy változóval, 
+		és két mutatóval. A mutatók az egyesre és nullásra mutatnak.
         </para>
         <para>
             Egy függvény inicializál egy kitüntetett gyökérelemmel, ami '/'-el van megjelenítve.
         </para>
         <para>
-            Egy függvény csomópontot hoz létre a kapott karakterrel.
+            A függvény csomópontot hoz létre.
         </para>
         <para>
-            A insert_tree  hozza létre a fát. Megviszgálja, hogy 0-át kap-e, ha igen, megnézi, hogy mutató által jelölt pontnak van-e 0-s gyermeke. 
-            Ha van, akkor a mutató oda lép. Ha nincs, akkor létrehozza azt, majd a mutatót a gyökérre állítja. Ha a kapott érték nem '0', akkor a végrehajtja az utasításokat, az csomópont jobb gyermekére.
+            A insert_tree csinálja a binfát. Megnézi, hogy 0 van-e, ha igen, megvizsgálja, hogy a pontoknak melyekre a mutató 
+		mutat van-e 0-s gyermeke. 
+            Ha van, akkor lép oda a mutató. Ha nincs, generál egyet, majda gyökérre állítja a mutatót.
+		Ha az érték nem 0, akkor az utasítások végrehajtódnak, az ópont jobb gyermekére.
         </para>
         <para>
-            Inorder módon megy végig a fán. Inordernél először a bal oldalon megyünk végig, majd a részfa gyökérelemét dolgozzuk fel, és ezt követően a jobb oldalát.
+            A fét inroder módon járja be. Így először a bal oldalon megyünk végig,
+		majd feldolgozzuk a részfának a gyökér elemét, ezután a fa jobb oldalát.
         </para>
         <para>
-            A destroy_tree eljárás  postorder módon járja be a fát. És rekurzió végén szabaddá teszi a gyökérelemet.
+           A postorder módon bejárás a destroy_tree-nek köszönhető. 
+		Ez a rekurzió végén szabaddá teszi a gyökérelemet.
         </para>
     </section>        
         
@@ -622,10 +629,11 @@ int main(int argc, char** argv)
 "               
         </para>
         <para>
-            A preorder annyiban különbözik, hogy először a gyökerét dolgozzuk fel, majd járjuk be a részfa bal oldalát, és utánna a jobbat.
+          Preorder bejárásnál a fa gyökérelemit dolgozzuk fel ,
+		ezután bejárjuk a részfa bal oldalát majd utána a jobb oldalát.
         </para>
         <para>
-            A postorder annyiban különbözik, hogy először a részfa bal oldalán megy végig, utánna a jobb oldalán, végül a gyökéren.
+          A postorder bejárás során a fa bal, majd jobb oldalán és végül a gyökerén megyünk végig.
         </para>
     </section>        
                         
@@ -850,9 +858,9 @@ int main(int argc, char** argv)
 ">Binfa c++              
         </para>
         <para>
-            A különbség a bináris fát kezelő függvényeke a Binfa osztályban vannak rendezve.
-            A Binfaban privátban van a Node.
-            A bitshift operátor mostmár fa építését csinálja.
+            A függvények a binfa osztályában vannak elhelyezve.
+            A Noda privát a fán belül.
+            A fa építését a bitshioft operator veszi át.
         </para>
     </section>        
                 
@@ -1078,8 +1086,8 @@ int main(int argc, char** argv)
 "  
         </para>
          <para>
-            Az előző feladat módosítása. Különbség, hogy a gyökérre egy mutató mutat, ezért létre lett hozva a gyökérobjektum. 
-            Ahol a program ezelőtt a gyökér referenciáját kérte ott a gyökeret kell adni.
+            Módosítottunk az előző feladaton annyit, hogy a bejárás miatt létrehoztun kegy gyökérobjektumot.
+            Ezelőtt, ahol a program azt kérte hogy a gyökér referenciáját adjuk meg, most a gyökeret magát kell megadnunk.
          </para>
     </section>                     
 
