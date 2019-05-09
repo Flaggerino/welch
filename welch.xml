@@ -144,7 +144,7 @@ public class PolarGen
 		értéket adunk. 
             A program megvizsgálja, hogy van-e szám, ha nincs, kér 2 számot, melyekből az egyiket tárolja, a változóját hamisra 
 		változtaja, ezután a második számot adja vissza.
-            A megoldás JAVA nyelvben is hasonló.
+            A megoldás JAVA nyelvben is hasonló. Tutoriált: Rémiás Dávid
         </para>                
     </section>        
 
@@ -398,6 +398,7 @@ int main(int argc, char** argv)
         <para>
            A postorder módon bejárás a destroy_tree-nek köszönhető. 
 		Ez a rekurzió végén szabaddá teszi a gyökérelemet.
+           Tutoriált: Rémiás Dávid
         </para>
     </section>        
         
@@ -642,6 +643,7 @@ int main(int argc, char** argv)
         <para>
             Az LZW algoritmust ültesd át egy C++ osztályba, legyen egy Tree és egy beágyazott Node
             osztálya. A gyökér csomópont legyen kompozícióban a fával!
+	    Tutoriált: Rémiás Dávid
         </para>
         <para>
             Megoldás videó:
@@ -1087,7 +1089,7 @@ int main(int argc, char** argv)
         </para>
          <para>
             Módosítottunk az előző feladaton annyit, hogy a bejárás miatt létrehoztun kegy gyökérobjektumot.
-            Ezelőtt, ahol a program azt kérte hogy a gyökér referenciáját adjuk meg, most a gyökeret magát kell megadnunk.
+            Ezelőtt, ahol a program azt kérte hogy a gyökér referenciáját adjuk meg, most a gyökeret magát kell megadnunk. Tutoriált: Rémiás Dávid
          </para>
     </section>                     
 
