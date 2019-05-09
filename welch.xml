@@ -18,102 +18,103 @@
         </para>
         <para>
             Megoldás forrása:
-           "#include <iostream>
-#include <cstdlib>
-#include <cmath>
-#include <ctime>
+		<programlisting><![CDATA[ 
+ 		#include <iostream>
+		#include <cstdlib>
+		#include <cmath>
+		#include <ctime>
 
-class PolarGen
-{
-public:
-  PolarGen ()
-  {
-    nincsTarolt = true;
-    std::srand (std::time (NULL));
-  }
-   ~PolarGen ()
-  {
-  }
-  double kovetkezo ()
-  {
-    if (nincsTarolt)
-      {
-        double u1, u2, v1, v2, w;
-        do
-    {
-      u1 = std::rand () / (RAND_MAX + 1.0);
-      u2 = std::rand () / (RAND_MAX + 1.0);
-      v1 = 2 * u1 - 1;
-      v2 = 2 * u2 - 1;
-      w = v1 * v1 + v2 * v2;
-    }
-        while (w > 1);
+		class PolarGen
+				{
+		public:
+ 		 PolarGen ()
+ 		 {
+ 		   nincsTarolt = true;
+ 		   std::srand (std::time (NULL));
+		  }
+		   ~PolarGen ()
+		  {
+		  }
+		  double kovetkezo ()
+ 		 {
+   		 if (nincsTarolt)
+    		  {
+     		   double u1, u2, v1, v2, w;
+     		   do
+ 		   {
+  		    u1 = std::rand () / (RAND_MAX + 1.0);
+  		    u2 = std::rand () / (RAND_MAX + 1.0);
+   		   v1 = 2 * u1 - 1;
+   		   v2 = 2 * u2 - 1;
+   		   w = v1 * v1 + v2 * v2;
+  		  }
+    		    while (w > 1);
 
-        double r = std::sqrt ((-2 * std::log (w)) / w);
+     		   double r = std::sqrt ((-2 * std::log (w)) / w);
 
-        tarolt = r * v2;
-        nincsTarolt = !nincsTarolt;
+       		 tarolt = r * v2;
+      		  nincsTarolt = !nincsTarolt;
 
-        return r * v1;
-      }
-    else
-      {
-        nincsTarolt = !nincsTarolt;
-        return tarolt;
-      }
-  }
-
-
-
-private:
-  bool nincsTarolt;
-  double tarolt;
-
-};
+       		 return r * v1;
+     		 }
+  		  else
+     		 {
+      		  nincsTarolt = !nincsTarolt;
+      		  return tarolt;
+    		  }
+		  }
 
 
-int
-main (int argc, char **argv)
-{
-  PolarGen pg;
 
-  for (int i = 0; i < 10; ++i)
-    std::cout << pg.kovetkezo () << std::endl;
+		private:
+ 		 bool nincsTarolt;
+  		double tarolt;
 
-  return 0;
-}
-"               
-        </para>
-        <para>
-            "
+		};
+
+
+		int
+		main (int argc, char **argv)
+		{
+ 		 PolarGen pg;
+
+ 		 for (int i = 0; i < 10; ++i)
+   		 std::cout << pg.kovetkezo () << std::endl;
+
+		  return 0;
+		}
+		"               
+       		 </para>
+       		 <para>
+          	  "
                               import java.util.Random;
 
-public class PolarGen
-{
-	private double tarolt;
-	private boolean nincsTarolt;
-	private Random r;
-	private int RAND_MAX;
+		public class PolarGen
+		{
+			private double tarolt;
+		private boolean nincsTarolt;
+		private Random r;
+		private int RAND_MAX;
 	
-	public PolarGen()
-	{
+		public PolarGen()
+		{
 		nincsTarolt = true;
 		r = new Random();
 		r.setSeed(20);
 		this.RAND_MAX=100;
-	}
-	public PolarGen(Integer RAND_MAX)
-	{
+		}
+		public PolarGen(Integer RAND_MAX)
+		{
 		nincsTarolt = true;
 		r = new Random();
 		r.setSeed(20);
 		this.RAND_MAX=RAND_MAX;
-	}
+		}
 	
-	public double kovetkezo()
-	{
-		if (nincsTarolt)
-	    {
+		public double kovetkezo()
+		{
+			if (nincsTarolt)
+	    	{
 			
 			double u1, u2, v1, v2, w;
 			int i=0;
@@ -130,14 +131,16 @@ public class PolarGen
 	        tarolt = r * v2;
 	        nincsTarolt = !nincsTarolt;
 	        return r * v1;
-	    }
-	    else
-	    {
+	   	 }
+	    	else
+	    	{
 	        nincsTarolt = !nincsTarolt;
 	        return tarolt;
-	    }
-	}
-}   
+	    	}
+			}
+		}   
+		]]></programlisting>
+          	
         </para>
         <para>
             Egy olyan class-t hozunk letre, melyben meg tudjuk adni, hogy nincs szám tárolva, és a Random Number Generatornak véletlenszerű
@@ -158,43 +161,44 @@ public class PolarGen
         </para>
         <para>
             Megoldás forrása:
-            "#include <stdio.h>
-#include <stdlib.h>
-#include <time.h>
-#include <string.h>
-typedef struct node{
-	char c;
-	struct node* left;
-	struct node* right;
-} Node;
+		<programlisting><![CDATA[
+           	 #include <stdio.h>
+		#include <stdlib.h>
+		#include <time.h>
+		#include <string.h>
+		typedef struct node{
+		char c;
+		struct node* left;
+		struct node* right;
+		} Node;
 
-Node* fa;
-Node gyoker;
+		Node* fa;
+		Node gyoker;
 
-#define null NULL
+		#define null NULL
 
-Node* create_empty()
-{
-	Node* tmp = &gyoker;
-	tmp->c= '/';
-	tmp->left = null;
-	tmp->right = null;
-	return tmp;
-}
+		Node* create_empty()
+		{
+		Node* tmp = &gyoker;
+		tmp->c= '/';
+		tmp->left = null;
+		tmp->right = null;
+		return tmp;
+		}
 
-Node* create_node(char val)
-{
-	Node* tmp = (Node*)malloc(sizeof(Node));
-	tmp->c=val;
-	tmp->left = null;
-	tmp->right = null;
-	return tmp;
-}
+		Node* create_node(char val)
+		{
+		Node* tmp = (Node*)malloc(sizeof(Node));
+		tmp->c=val;
+		tmp->left = null;
+		tmp->right = null;
+		return tmp;
+		}
 
-void insert_tree(char val)
-{
-	if(val=='0')
-	{
+		void insert_tree(char val)
+		{
+		if(val=='0')
+		{
 		if(fa->left == null)
 		{
 			fa->left = create_node(val);
@@ -205,9 +209,9 @@ void insert_tree(char val)
 		{
 			fa = fa->left;
 		}
-	}
-	else
-	{
+		}
+		else
+		{
 		if(fa->right == null)
 		{
 			fa->right = create_node(val);
@@ -218,19 +222,19 @@ void insert_tree(char val)
 		{
 			fa = fa->right;
 		}
-	}
-}
+		}
+		}
 
-void inorder(Node* elem,int depth)
-{
+		void inorder(Node* elem,int depth)
+		{
 
-	if(elem==null)
-	{
+		if(elem==null)
+		{
 		return;
-	}
-	inorder(elem->left,depth+1);
-	if(depth) 
-	{
+		}
+		inorder(elem->left,depth+1);
+		if(depth) 
+		{
 		char *spaces;
 		spaces =(char*) malloc(sizeof(char)*depth*2+1);
 		for(int i=0;i<depth;i+=2)
@@ -241,22 +245,22 @@ void inorder(Node* elem,int depth)
 		spaces[depth]='\0';
 
 		printf("%s%c\n",spaces,elem->c);
-	}
-	else
-	{
+		}
+		else
+		{
 		printf("%c\n",elem->c);
-	}
-	inorder(elem->right,depth+1);
-}
+		}
+		inorder(elem->right,depth+1);
+		}
 
-void preorder(Node* elem,int depth)
-{
-	if(elem==null)
-	{
+		void preorder(Node* elem,int depth)
+		{
+		if(elem==null)
+		{
 		return;
-	}
-	if(depth) 
-	{
+		}
+		if(depth) 
+		{
 		char *spaces;
 		spaces =(char*) malloc(sizeof(char)*depth*2+1);
 		for(int i=0;i<depth;i+=2)
@@ -267,24 +271,24 @@ void preorder(Node* elem,int depth)
 		spaces[depth*2]='\0';
 
 		printf("%s%c\n",spaces,elem->c);
-	}
-	else
-	{
+		}
+		else
+		{
 		printf("%c\n",elem->c);
-	}
-	preorder(elem->left,depth+1);	
-	preorder(elem->right,depth+1);
-}
-void postorder(Node* elem,int depth)
-{
-	if(elem==null)
-	{
+		}
+		preorder(elem->left,depth+1);	
+		preorder(elem->right,depth+1);
+		}
+		void postorder(Node* elem,int depth)
+		{
+		if(elem==null)
+		{
 		return;
-	}
-	postorder(elem->left,depth+1);	
-	postorder(elem->right,depth+1);
-	if(depth) 
-	{
+			}
+		postorder(elem->left,depth+1);	
+		postorder(elem->right,depth+1);
+		if(depth) 
+		{
 		char *spaces;
 		spaces =(char*) malloc(sizeof(char)*depth*2+1);
 		for(int i=0;i<depth;i+=2)
@@ -296,47 +300,47 @@ void postorder(Node* elem,int depth)
 
 		printf("%s%c\n",spaces,elem->c);
 		free(spaces);
-	}
-	else
-	{
+		}
+		else
+		{
 		printf("%c\n",elem->c);
-	}
-}
+			}
+		}
 
-void destroy_tree(Node* elem)
-{
-	if(elem==null)
-	{
+		void destroy_tree(Node* elem)
+		{
+		if(elem==null)
+		{
 		return;
-	}
-	destroy_tree(elem->left);
-	destroy_tree(elem->right);
-	if(elem->c == gyoker.c)
-	{
+		}
+		destroy_tree(elem->left);
+		destroy_tree(elem->right);
+		if(elem->c == gyoker.c)
+		{
+	
+		}
+		else
+		{
+			free(elem);
+		}
+		}
 
-	}
-	else
-	{
-		free(elem);
-	}
-}
+		void usage()
+		{
+		printf("Használat: ./binfa KAPCSOLÓ\n");
+		printf("Az KAPCSOLÓ lehet:\n");
+		printf("--preorder\tA bináris fa preorder bejárása\n");
+		printf("--inorder\tA bináris fa inorder bejárása\n");
+		printf("--postorder\tA bináris fa postorder bejárása\n");
+		}
 
-void usage()
-{
-	printf("Használat: ./binfa KAPCSOLÓ\n");
-	printf("Az KAPCSOLÓ lehet:\n");
-	printf("--preorder\tA bináris fa preorder bejárása\n");
-	printf("--inorder\tA bináris fa inorder bejárása\n");
-	printf("--postorder\tA bináris fa postorder bejárása\n");
-}
-
-int main(int argc, char** argv)
-{
-	srand(time(null));
-	fa = create_empty();
-	//gyoker = *fa;
-	for(int i=0;i<10000;i++)
-	{
+		int main(int argc, char** argv)
+		{
+		srand(time(null));
+		fa = create_empty();
+		//gyoker = *fa;
+		for(int i=0;i<10000;i++)
+		{
 		int x=rand()%2;
 		if(x)
 		{
@@ -346,9 +350,9 @@ int main(int argc, char** argv)
 		{
 			insert_tree('0');
 		}
-	}
-	if(argc == 2)
-	{
+		}
+		if(argc == 2)
+		{
 		if(strcmp(argv[1],"--preorder")==0)
 		{
 			preorder(&gyoker,0);
@@ -365,15 +369,15 @@ int main(int argc, char** argv)
 		{
 			usage();
 		}
-	}
-	else
-	{
+		}
+		else
+		{
 		usage();
-	}
-	destroy_tree(&gyoker);
-	return 0;
-}
-"               
+		}
+		destroy_tree(&gyoker);
+		return 0;
+		}
+	        ]]></programlisting>   
         </para>
         <para>
           Csinálunk egy struktúrát melynek a Node nevet adjuk,ez jelzi a binfában lévő csomópontokat. EZ rendelkezik egy változóval, 
@@ -412,6 +416,7 @@ int main(int argc, char** argv)
         </para>
         <para>
             Megoldás forrása:
+		<programlisting><![CDATA[
             "#include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
@@ -627,7 +632,7 @@ int main(int argc, char** argv)
 	destroy_tree(&gyoker);
 	return 0;
 }
-"               
+"              ]]></programlisting> 
         </para>
         <para>
           Preorder bejárásnál a fa gyökérelemit dolgozzuk fel ,
@@ -650,6 +655,7 @@ int main(int argc, char** argv)
         </para>
         <para>
             Megoldás forrása:
+		<programlisting><![CDATA[
             "#include <iostream>
 #include <cstdlib>
 #include <ctime>
@@ -857,7 +863,8 @@ int main(int argc, char** argv)
 	bfa.destroy_tree(&bfa.gyoker);
 	return 0;
 }
-">Binfa c++              
+">Binfa c++            
+		]]></programlisting>
         </para>
         <para>
             A függvények a binfa osztályában vannak elhelyezve.
@@ -877,6 +884,7 @@ int main(int argc, char** argv)
         </para>
         <para>
             Megoldás forrása:
+		<programlisting><![CDATA[
            "#include <iostream>
 #include <cstdlib>
 #include <ctime>
@@ -1086,6 +1094,7 @@ int main(int argc, char** argv)
 	return 0;
 }
 "  
+	]]></programlisting>
         </para>
          <para>
             Módosítottunk az előző feladaton annyit, hogy a bejárás miatt létrehoztun kegy gyökérobjektumot.
